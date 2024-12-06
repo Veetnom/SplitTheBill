@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SplitTheBill</string>
+    <string name="top_bills">Чеки</string>
+</resources>

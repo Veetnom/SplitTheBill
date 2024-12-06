@@ -1,0 +1,39 @@
+<LinearLayout android:id="@+id/menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/border_menu"
+    android:padding="6dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:drawableTop="@drawable/checks_button"
+        android:text="Чеки"
+        android:textColor="#6F7892"
+        android:textSize="14sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/openGroupsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#FFFFFF"
+        android:drawableTop="@drawable/groups_button"
+        android:text="Коллектив"
+        android:maxLines="1"
+        android:textColor="#A9A9A9"
+        android:textSize="14sp" />
+</LinearLayout>
