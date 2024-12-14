@@ -1,39 +1,42 @@
-<LinearLayout android:id="@+id/menu"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@drawable/border_menu"
-    android:padding="6dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomMenu"
         android:layout_width="match_parent"
+        android:layout_gravity="bottom"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:backgroundTint="@color/white"
-        android:drawableTop="@drawable/checks_button"
-        android:text="Чеки"
-        android:textColor="#6F7892"
-        android:textSize="14sp" />
+        app:fabCradleMargin="16dp"
+        app:fabCradleRoundedCornerRadius="8dp"
+        app:fabCradleVerticalOffset="18dp">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/transparent_background"
+            app:menu="@menu/bottom_navigation_menu"
+            />
 
-    <Button
-        android:id="@+id/openGroupsButton"
-        android:layout_width="match_parent"
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addBillButton"
+        android:contentDescription="addBillToScan"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:backgroundTint="#FFFFFF"
-        android:drawableTop="@drawable/groups_button"
-        android:text="Коллектив"
-        android:maxLines="1"
-        android:textColor="#A9A9A9"
-        android:textSize="14sp" />
-</LinearLayout>
+        android:src="@drawable/ic_new_bill"
+        android:backgroundTint="#677391"
+        app:layout_anchorGravity="center"
+        app:maxImageSize="48dp"
+        app:tint="@color/white"
+        app:borderWidth="0dp"
+        app:layout_anchor="@id/bottomNavigationMenu"
+        app:fabCustomSize="80dp"
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
