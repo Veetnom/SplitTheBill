@@ -29,21 +29,18 @@ class PartiesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = inflater.inflate(R.layout.fragment_party_list, container, false)
-
-        // Инициализация базы данных
+        
         partiesDB = PartiesDataBase.getDb(requireContext())
 
         val recyclerView = binding.findViewById<RecyclerView>(R.id.recycler_parties)
-        adapter = PartiesAdapter(mutableListOf()) // Инициализация адаптера с пустым списком
+        adapter = PartiesAdapter(mutableListOf())
         recyclerView.adapter = adapter
 
-        // Загружаем данные из базы данных
         loadParties()
 
-        // Добавление новой вечеринки
         val addButton: FloatingActionButton = binding.findViewById(R.id.party_add_button)
         addButton.setOnClickListener {
-            addNewParty() // Добавляем новую вечеринку
+            addNewParty()
         }
 
         return binding

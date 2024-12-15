@@ -10,7 +10,7 @@ import androidx.room.Relation
 @Entity(tableName = "parties")
 data class PartiesData(
     @PrimaryKey(autoGenerate = true)
-    var partyId: Int? = null,  // Значение этого поля будет автоматически сгенерировано Room
+    var partyId: Int? = null,
     @ColumnInfo(name = "name")
     var name: String,
     @ColumnInfo(name = "friendsCount")
@@ -18,9 +18,8 @@ data class PartiesData(
     @ColumnInfo(name = "color")
     var color: Int,
     @Ignore
-    val children: List<PartyUsersData> = listOf()  // Этот список не будет сохраняться в базе данных
+    val children: List<PartyUsersData> = listOf()
 ) {
-    // Публичный пустой конструктор для Room
     constructor() : this(0, "", 0, 0, listOf())
 }
 
@@ -32,8 +31,7 @@ data class PartyUsersData(
     @ColumnInfo(name = "name")
     val name: String,
 ) {
-    // Публичный пустой конструктор необходим для Room
-    constructor() : this(0, "") // Пустой конструктор
+    constructor() : this(0, "")
 }
 
 
@@ -44,15 +42,14 @@ data class FriendsData(
     @ColumnInfo(name = "name")
     var name: String
 ){
-    // Публичный пустой конструктор необходим для Room
-    constructor() : this(0, "") // Пустой конструктор
+    constructor() : this(0, "")
 }
 
 data class PartyWithUsers(
-    @Embedded val party: PartiesData, // Данные группы
+    @Embedded val party: PartiesData,
     @Relation(
-        parentColumn = "partyId", // Столбец в таблице groups
-        entityColumn = "partyUserId" // Столбец в таблице users
+        parentColumn = "partyId",
+        entityColumn = "partyUserId"
     )
-    val users: List<PartyUsersData> // Список пользователей, связанных с этой группой
+    val users: List<PartyUsersData>
 )
