@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.splitthebill.data.PartiesData
 import com.example.splitthebill.data.PartyWithUsers
-import com.example.splitthebill.view.FriendsListActivity
+import com.example.splitthebill.view.FriendsActivity
 import com.example.splitthebill.view.MainActivity
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,7 +43,7 @@ class PartiesAdapter(private val dataSet: MutableList<PartiesData>) : RecyclerVi
 
             // Открытие списка друзей для добавления
             addPartyUsersButton.setOnClickListener {
-                val intent = Intent(itemView.context, FriendsListActivity::class.java)
+                val intent = Intent(itemView.context, FriendsActivity::class.java)
                 itemView.context.startActivity(intent)
             }
         }

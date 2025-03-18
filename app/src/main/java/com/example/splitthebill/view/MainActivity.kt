@@ -9,6 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.splitthebill.AddBillActivity
 import com.example.splitthebill.R
 import com.example.splitthebill.fragments.BillsFragment
@@ -29,33 +32,15 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val bottomMenu = findViewById<BottomNavigationView>(R.id.bottomNavigationMenu)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
+        val bottomMenu = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomMenu.setupWithNavController(navController)
+
         val addBillButton = findViewById<FloatingActionButton>(R.id.addBillButton)
-        addBillButton.setOnClickListener{
+        addBillButton.setOnClickListener {
             val intent = Intent(this, AddBillActivity::class.java)
             startActivity(intent)
         }
-        if (savedInstanceState == null) {
-            switchFragment(BillsFragment())
-            Log.d("MainActivity", "URA")
-        }
-        bottomMenu.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_bills -> {
-                    switchFragment(BillsFragment())
-                    true
-                }
-                R.id.nav_parties -> {
-                    switchFragment(PartiesFragment())
-                    true
-                }
-                else -> false
-            }
-        }
-    }
-    fun switchFragment(fragment: Fragment){
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
-            .commit()
     }
 }

@@ -10,80 +10,53 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.splitthebill.PartiesAdapter
 import com.example.splitthebill.R
+import com.example.splitthebill.data.PartiesDao
 import com.example.splitthebill.data.PartiesDataBase
 import com.example.splitthebill.data.PartyUsersData
 import com.example.splitthebill.data.PartiesData
 import com.example.splitthebill.data.PartyWithUsers
+import com.example.splitthebill.presenter.PartiesPresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
 class PartiesFragment : Fragment() {
-    private lateinit var partiesDB: PartiesDataBase
+    private lateinit var presenter: PartiesPresenter
     private lateinit var adapter: PartiesAdapter
+    private lateinit var partiesDao: PartiesDao
+    private val scope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = inflater.inflate(R.layout.fragment_party_list, container, false)
-        
-        partiesDB = PartiesDataBase.getDb(requireContext())
+
+        val partiesDB = PartiesDataBase.getDb(requireContext())
+        partiesDao = partiesDB.partiesDao()
+
+        presenter = PartiesPresenter(this, partiesDao)
 
         val recyclerView = binding.findViewById<RecyclerView>(R.id.recycler_parties)
         adapter = PartiesAdapter(mutableListOf())
         recyclerView.adapter = adapter
 
-        loadParties()
+        presenter.loadParties()
 
+        // Настраиваю кнопку для добавления новых коллективов
         val addButton: FloatingActionButton = binding.findViewById(R.id.party_add_button)
         addButton.setOnClickListener {
-            addNewParty()
+            presenter.addNewParty()
         }
 
         return binding
     }
-
-    // Загружаем список вечеринок из базы данных
-    private fun loadParties() {
-        lifecycleScope.launch {
-            val partiesFromDb = partiesDB.partiesDao().getPartiesWithUsers() // Получаем данные о вечеринках с пользователями
-
-            // Обновляем адаптер в главном потоке
-            withContext(Dispatchers.Main) {
-                val partiesList = mutableListOf<PartiesData>()
-                partiesFromDb.forEach {
-                    partiesList.add(it.party) // Добавляем группу в список
-                }
-                adapter.updateParties(partiesList) // Обновляем адаптер
-            }
-        }
-    }
-
-    // Функция для добавления новой вечеринки
-    private fun addNewParty() {
-        lifecycleScope.launch {
-            val newParty = PartiesData(
-                // ID будет автоматически генерироваться Room
-                name = "Новая группа",
-                friendsCount = 0,
-                color = R.color.test
-            )
-
-            // Добавление новой группы в базу данных
-            val newPartyId = partiesDB.partiesDao().insertParty(newParty)
-
-            // Обновляем адаптер в главном потоке
-            withContext(Dispatchers.Main) {
-                val updatedParty = PartyWithUsers(
-                    party = newParty.copy(partyId = newPartyId.toInt()),
-                    users = listOf()
-                )
-                adapter.addParty(updatedParty)
-            }
-        }
+    // Вызывается в Презентере для отображения коллективов
+    fun showParties(parties: List<PartiesData>){
+        adapter.updateParties(parties)
     }
 }
 

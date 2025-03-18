@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_nav"
+    app:startDestination="@id/billsFragment">
+
+    <fragment
+        android:id="@+id/partiesFragment"
+        android:name="com.example.splitthebill.fragments.PartiesFragment"
+        android:label="PartiesFragment" />
+    <fragment
+        android:id="@+id/billsFragment"
+        android:name="com.example.splitthebill.fragments.BillsFragment"
+        android:label="BillsFragment" />
+</navigation>

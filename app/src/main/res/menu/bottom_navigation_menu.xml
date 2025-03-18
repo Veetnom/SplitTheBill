@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/nav_bills"
+        android:id="@+id/billsFragment"
         android:icon="@drawable/ic_bills"
         android:title="Чеки"
         android:orderInCategory="1"
@@ -14,7 +14,7 @@
         android:orderInCategory="2"
         />
     <item
-        android:id="@+id/nav_parties"
+        android:id="@+id/partiesFragment"
         android:icon="@drawable/ic_parties"
         android:title="Коллектив"
         android:orderInCategory="3"
